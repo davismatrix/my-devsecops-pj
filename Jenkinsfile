@@ -2,14 +2,14 @@
 pipeline {
   agent { label 'build' }
    environment { 
-        registry = "adamtravis/democicd" 
+        registry = "davismatrix/devsecops-pj" 
         registryCredential = 'dockerhub' 
    }
 
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', credentialsId: 'GitlabCred', url: 'https://gitlab.com/learndevopseasy/devsecops/springboot-build-pipeline.git'
+        git branch: 'main', credentialsId: 'gitlab-token', url: 'https://github.com/davismatrix/my-devsecops-pj.git'
       }
     }
   
@@ -72,14 +72,14 @@ pipeline {
    stage('Stage VII: Scan Image ') {
       steps { 
         echo "Scanning Image for Vulnerabilities"
-        sh "trivy image --scanners vuln --offline-scan adamtravis/democicd:latest > trivyresults.txt"
+        sh "trivy image --scanners vuln --offline-scan davismatrix/devsecops-pj:latest > trivyresults.txt"
         }
     }
           
    stage('Stage VIII: Smoke Test ') {
       steps { 
         echo "Smoke Test the Image"
-        sh "docker run -d --name smokerun -p 8080:8080 adamtravis/democicd"
+        sh "docker run -d --name smokerun -p 8080:8080 davismatrix/devsecops-pj"
         sh "sleep 90; ./check.sh"
         sh "docker rm --force smokerun"
         }
