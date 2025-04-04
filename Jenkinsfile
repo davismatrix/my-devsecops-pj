@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', credentialsId: 'gitlab-token', url: 'https://github.com/davismatrix/my-devsecops-pj.git'
+        git branch: 'main', credentialsId: 'github', url: 'https://github.com/davismatrix/my-devsecops-pj.git'
       }
     }
   
