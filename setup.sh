@@ -14,12 +14,12 @@ fi
 
 # Install Java 8, Java 11 & Docker
 apt update
-apt install -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk docker.io maven gnupg lsb-release curl
+apt install -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk docker.io maven gnupg lsb-release curl wget
 usermod -a -G docker ubuntu
 
 # Install Trivy
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
 apt update
 apt install -y trivy
 
