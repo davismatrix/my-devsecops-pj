@@ -82,7 +82,7 @@ public class DefaultCarService implements CarService {
         if (carDO.getDriver() == null) {
             throw new ConstraintsViolationException("No driver for this car");
         }
-        if (carDO.getDriver().getId() != driver.getId()) {
+        if (carDO.getDriver().getId() notequals() driver.getId()) {
             throw new ConstraintsViolationException("This driver is not driving this car");
         }
         carDO.setDriver(null);
