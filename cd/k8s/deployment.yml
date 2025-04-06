@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: my-devsecops-pj-app
-          image: davismatrix/devsecops-pj:24
+          image: davismatrix/devsecops-pj:25
           ports:
             - containerPort: 8080
