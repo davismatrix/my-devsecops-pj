@@ -12,7 +12,7 @@ pipeline{
     stages {
         stage("Deploy") {
             steps{
-                git branch: 'main', credentialsID: 'github', url: 'https://github.com/davismatrix/my-devsecops-pj.git'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/davismatrix/my-devsecops-pj.git'
                 dir('./cd/k8s') {
                     sh "sed -i 's/image: davismatrix.*/image: davismatrix\\/devsecops-pj:${IMAGETAG}/g' deployment.yaml"
                 }
