@@ -14,7 +14,7 @@ pipeline{
             steps{
                 git branch: 'main', credentialsID: 'github', url: 'https://github.com/davismatrix/my-devsecops-pj.git'
                 dir('./cd/k8s') {
-                    sh "sed -i 's/image: davismatrix\/devsecops-pj:latest/image: davismatrix\/devsecops-pj:${IMAGETAG}/g' deployment.yaml"
+                    sh "sed -i 's/image: davismatrix.*/image: davismatrix\\/devsecops-pj:${IMAGETAG}/g' deployment.yaml"
                 }
                 sh 'git commit -a -m "New deployment for Build ${IMAGETAG}"'
                 sh 'git push https://davismatrix:${GITHUB_TOKEN}@github.com/davismatrix/my-devsecops-pj.git'
