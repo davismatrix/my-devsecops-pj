@@ -1,8 +1,9 @@
 #!/bin/bash
 
 #---------------------------------------------#
-# Author: Adam WezvaTechnologies
-# Call/Whatsapp: +91-9739110917
+# Author: DAVISMATRIX
+# Date: 2023-10-01
+# Description: This script sets up a build server
 #---------------------------------------------#
 
 # Ensure script is run with root privileges
