@@ -62,7 +62,7 @@ pipeline {
         echo "Build Docker Image"
         script {
                docker.withRegistry( '', registryCredential ) { 
-                 myImage = docker.build registry
+                 myImage = docker.build registry + ":$BUILD_NUMBER"
                  myImage.push()
                 }
         }
@@ -72,18 +72,27 @@ pipeline {
    stage('Stage VII: Scan Image ') {
       steps { 
         echo "Scanning Image for Vulnerabilities"
-        sh "trivy image --scanners vuln --offline-scan davismatrix/devsecops-pj:latest > trivyresults.txt"
+        sh "trivy image --scanners vuln --offline-scan davismatrix/devsecops-pj:$BUILD_NUMBER > trivyresults.txt"
         }
     }
           
    stage('Stage VIII: Smoke Test ') {
       steps { 
         echo "Smoke Test the Image"
-        sh "docker run -d --name smokerun -p 8081:8080 davismatrix/devsecops-pj"
+        sh "docker run -d --name smokerun -p 8081:8080 davismatrix/devsecops-pj:$BUILD_NUMBER"
         sh "sleep 90; ./check.sh"
         sh "docker rm --force smokerun"
         }
     }
 
+    stage('Stage IX: Deploy to K8s') {
+        steps { 
+          script {
+            TAG = "$BUILD_NUMBER"
+            echo "Deploying to K8s"
+              build wait: false, job: 'devsecops-pj-cd-pipeline', parameters: [string(name: 'IMAGETAG', value: "${TAG}")]
+          }
+        }
+      }
   }
 }
