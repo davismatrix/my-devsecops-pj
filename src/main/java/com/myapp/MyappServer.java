@@ -43,9 +43,22 @@ public class MyappServer extends WebMvcConfigurerAdapter
     }
 
 
-    private ApiInfo generateApiInfo()
-    {
-        return new ApiInfo("DAVISMATRIX DEVSECOPS SAMPLE PROJECT", "This is a sample project for Devsecops CICD pipeline.", "Version 1.0 - mw",
-            "urn:tos", "DAVIS", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
-    }
+   // private ApiInfo generateApiInfo()
+   // {
+   //     return new ApiInfo("DAVISMATRIX DEVSECOPS SAMPLE PROJECT", "This is a sample project for Devsecops CICD pipeline.", "Version 1.0 - mw",
+   //         "urn:tos", "DAVIS", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
+   // }
+   
+   private ApiInfo generateApiInfo() {
+    return new ApiInfoBuilder()
+        .title("DAVISMATRIX DEVSECOPS SAMPLE PROJECT")
+        .description("This is a sample project for Devsecops CICD pipeline.")
+        .version("Version 1.0 - mw")
+        .termsOfServiceUrl("urn:tos")
+        .license("Apache 2.0")
+        .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
+        .contact(new Contact("DAVIS", "", "")) // Optional contact info
+        .build();
+}
+
 }
